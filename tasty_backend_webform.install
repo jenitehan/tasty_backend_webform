@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function tasty_backend_webform_install() {
+  
+  // Assign webform permissions to the 'content admin' role created by the Tasty Backend Base module.
+  $content_admin_role = user_role_load_by_name('content admin');
+  user_role_grant_permissions($content_admin_role->rid, array(
+    'create webform content',
+    'edit any webform content',
+    'delete any webform content',
+    'override webform published option',
+    'view any unpublished webform content',
+    'access all webform results',
+    'edit all webform submissions',
+    'delete all webform submissions',
+    )
+  );
+}

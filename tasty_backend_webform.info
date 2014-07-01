@@ -1,0 +1,5 @@
+name = Tasty Backend Webform
+description = Tasty Backend configuration for the Webform module.
+version = VERSION
+core = 7.x
+package = Tasty Backend
