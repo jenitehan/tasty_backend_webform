@@ -18,4 +18,20 @@ function tasty_backend_webform_install() {
     'delete all webform submissions',
     )
   );
+  
+  // Set up the webform content type.
+  variable_set('additional_settings__active_tab_webform', 'edit-menu');
+  variable_set('comment_anonymous_webform', 0);
+  variable_set('comment_default_mode_webform', 1);
+  variable_set('comment_default_per_page_webform', '50');
+  variable_set('comment_form_location_webform', 1);
+  variable_set('comment_preview_webform', '1');
+  variable_set('comment_subject_field_webform', 1);
+  variable_set('comment_webform', '0');
+  variable_set('menu_options_webform', array(0 => 'main-menu',));
+  variable_set('menu_parent_webform', 'main-menu:0');
+  variable_set('node_options_webform', array(0 => 'status',));
+  variable_set('node_preview_webform', '0');
+  variable_set('node_submitted_webform', 0);
+  variable_set('webform_node_types', array(0 => 'webform',));
 }
