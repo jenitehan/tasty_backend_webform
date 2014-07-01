@@ -1,8 +1,424 @@
 <?php
 
 /**
- * Implements hook_views_api().
+ * Implements hook_views_default_views_alter().
+ *
+ * Add a custom Webform Bulk Operations view.
  */
-function tasty_backend_webform_views_api() {
-  return array("version" => "3.0");
+function tasty_backend_webform_views_default_views_alter(&$views) {
+  
+  if (array_key_exists('webform_bulk_operations', $views)) {
+    $view = new view();
+    $view->name = 'webform_bulk_operations';
+    $view->description = 'A bulk operations view for Webforms.';
+    $view->tag = 'default';
+    $view->base_table = 'node';
+    $view->human_name = 'Webform Bulk Operations';
+    $view->core = 7;
+    $view->api_version = '3.0';
+    $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+    
+    /* Display: Master */
+    $handler = $view->new_display('default', 'Master', 'default');
+    $handler->display->display_options['title'] = 'Manage Webforms';
+    $handler->display->display_options['use_ajax'] = TRUE;
+    $handler->display->display_options['use_more_always'] = FALSE;
+    $handler->display->display_options['access']['type'] = 'perm';
+    $handler->display->display_options['access']['perm'] = 'edit any webform content';
+    $handler->display->display_options['cache']['type'] = 'none';
+    $handler->display->display_options['query']['type'] = 'views_query';
+    $handler->display->display_options['exposed_form']['type'] = 'basic';
+    $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
+    $handler->display->display_options['pager']['type'] = 'full';
+    $handler->display->display_options['pager']['options']['items_per_page'] = '25';
+    $handler->display->display_options['style_plugin'] = 'table';
+    $handler->display->display_options['style_options']['columns'] = array(
+      'views_bulk_operations' => 'views_bulk_operations',
+      'nid' => 'nid',
+      'title' => 'title',
+      'timestamp' => 'title',
+      'created' => 'created',
+      'changed' => 'changed',
+      'status' => 'status',
+      'nothing' => 'nothing',
+      'nothing_1' => 'nothing',
+      'nothing_2' => 'nothing',
+      'nothing_3' => 'nothing',
+      'nothing_4' => 'nothing',
+      'edit_node' => 'edit_node',
+      'delete_node' => 'edit_node',
+    );
+    $handler->display->display_options['style_options']['default'] = 'created';
+    $handler->display->display_options['style_options']['info'] = array(
+      'views_bulk_operations' => array(
+        'align' => '',
+        'separator' => '',
+        'empty_column' => 0,
+      ),
+      'nid' => array(
+        'sortable' => 0,
+        'default_sort_order' => 'asc',
+        'align' => '',
+        'separator' => '',
+        'empty_column' => 0,
+      ),
+      'title' => array(
+        'sortable' => 1,
+        'default_sort_order' => 'asc',
+        'align' => '',
+        'separator' => ' ',
+        'empty_column' => 0,
+      ),
+      'timestamp' => array(
+        'align' => '',
+        'separator' => '',
+        'empty_column' => 0,
+      ),
+      'created' => array(
+        'sortable' => 1,
+        'default_sort_order' => 'desc',
+        'align' => '',
+        'separator' => '',
+        'empty_column' => 0,
+      ),
+      'changed' => array(
+        'sortable' => 1,
+        'default_sort_order' => 'desc',
+        'align' => '',
+        'separator' => '',
+        'empty_column' => 0,
+      ),
+      'status' => array(
+        'sortable' => 1,
+        'default_sort_order' => 'asc',
+        'align' => '',
+        'separator' => '',
+        'empty_column' => 0,
+      ),
+      'nothing' => array(
+        'align' => '',
+        'separator' => ' | ',
+        'empty_column' => 0,
+      ),
+      'nothing_1' => array(
+        'align' => '',
+        'separator' => '',
+        'empty_column' => 0,
+      ),
+      'nothing_2' => array(
+        'align' => '',
+        'separator' => '',
+        'empty_column' => 0,
+      ),
+      'nothing_3' => array(
+        'align' => '',
+        'separator' => '',
+        'empty_column' => 0,
+      ),
+      'nothing_4' => array(
+        'align' => '',
+        'separator' => '',
+        'empty_column' => 0,
+      ),
+      'edit_node' => array(
+        'align' => '',
+        'separator' => ' | ',
+        'empty_column' => 0,
+      ),
+      'delete_node' => array(
+        'align' => '',
+        'separator' => '',
+        'empty_column' => 0,
+      ),
+    );
+    /* Header: Global: Result summary */
+    $handler->display->display_options['header']['result']['id'] = 'result';
+    $handler->display->display_options['header']['result']['table'] = 'views';
+    $handler->display->display_options['header']['result']['field'] = 'result';
+    /* No results behavior: Global: Text area */
+    $handler->display->display_options['empty']['area']['id'] = 'area';
+    $handler->display->display_options['empty']['area']['table'] = 'views';
+    $handler->display->display_options['empty']['area']['field'] = 'area';
+    $handler->display->display_options['empty']['area']['empty'] = TRUE;
+    $handler->display->display_options['empty']['area']['content'] = 'No results available.';
+    $handler->display->display_options['empty']['area']['format'] = 'basic_html';
+    /* Field: Bulk operations: Content */
+    $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
+    $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'node';
+    $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
+    $handler->display->display_options['fields']['views_bulk_operations']['label'] = '';
+    $handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
+    $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
+    $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+    $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+    $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+    $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
+      'action::node_assign_owner_action' => array(
+        'selected' => 0,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+      ),
+      'action::views_bulk_operations_delete_item' => array(
+        'selected' => 1,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 1,
+        'label' => 'Delete',
+      ),
+      'action::views_bulk_operations_script_action' => array(
+        'selected' => 0,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+      ),
+      'action::node_make_sticky_action' => array(
+        'selected' => 0,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+      ),
+      'action::node_make_unsticky_action' => array(
+        'selected' => 0,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+      ),
+      'action::views_bulk_operations_modify_action' => array(
+        'selected' => 0,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+        'settings' => array(
+          'show_all_tokens' => 1,
+          'display_values' => array(
+            '_all_' => '_all_',
+          ),
+        ),
+      ),
+      'action::views_bulk_operations_argument_selector_action' => array(
+        'selected' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+        'settings' => array(
+          'url' => '',
+        ),
+      ),
+      'action::node_promote_action' => array(
+        'selected' => 0,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+      ),
+      'action::node_publish_action' => array(
+        'selected' => 1,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 1,
+        'label' => 'Publish',
+      ),
+      'action::node_unpromote_action' => array(
+        'selected' => 0,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+      ),
+      'action::node_save_action' => array(
+        'selected' => 0,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+      ),
+      'action::system_send_email_action' => array(
+        'selected' => 0,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+      ),
+      'action::node_unpublish_action' => array(
+        'selected' => 1,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 1,
+        'label' => 'Unpublish',
+      ),
+      'action::node_unpublish_by_keyword_action' => array(
+        'selected' => 0,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+      ),
+      'action::pathauto_node_update_action' => array(
+        'selected' => 0,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+      ),
+    );
+    /* Field: Content: Nid */
+    $handler->display->display_options['fields']['nid']['id'] = 'nid';
+    $handler->display->display_options['fields']['nid']['table'] = 'node';
+    $handler->display->display_options['fields']['nid']['field'] = 'nid';
+    $handler->display->display_options['fields']['nid']['label'] = '';
+    $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
+    $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+    /* Field: Content: Title */
+    $handler->display->display_options['fields']['title']['id'] = 'title';
+    $handler->display->display_options['fields']['title']['table'] = 'node';
+    $handler->display->display_options['fields']['title']['field'] = 'title';
+    $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+    $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+    /* Field: Content: Has new content */
+    $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
+    $handler->display->display_options['fields']['timestamp']['table'] = 'history';
+    $handler->display->display_options['fields']['timestamp']['field'] = 'timestamp';
+    $handler->display->display_options['fields']['timestamp']['label'] = '';
+    $handler->display->display_options['fields']['timestamp']['element_label_colon'] = FALSE;
+    /* Field: Content: Post date */
+    $handler->display->display_options['fields']['created']['id'] = 'created';
+    $handler->display->display_options['fields']['created']['table'] = 'node';
+    $handler->display->display_options['fields']['created']['field'] = 'created';
+    $handler->display->display_options['fields']['created']['label'] = 'Date Added';
+    $handler->display->display_options['fields']['created']['date_format'] = 'short';
+    /* Field: Content: Updated date */
+    $handler->display->display_options['fields']['changed']['id'] = 'changed';
+    $handler->display->display_options['fields']['changed']['table'] = 'node';
+    $handler->display->display_options['fields']['changed']['field'] = 'changed';
+    $handler->display->display_options['fields']['changed']['label'] = 'Last Updated';
+    $handler->display->display_options['fields']['changed']['date_format'] = 'short';
+    /* Field: Submissions Link */
+    $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+    $handler->display->display_options['fields']['nothing']['table'] = 'views';
+    $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+    $handler->display->display_options['fields']['nothing']['ui_name'] = 'Submissions Link';
+    $handler->display->display_options['fields']['nothing']['label'] = 'Results';
+    $handler->display->display_options['fields']['nothing']['alter']['text'] = 'Submissions';
+    $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
+    $handler->display->display_options['fields']['nothing']['alter']['path'] = 'node/[nid]/webform-results';
+    $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+    /* Field: Analysis Link */
+    $handler->display->display_options['fields']['nothing_1']['id'] = 'nothing_1';
+    $handler->display->display_options['fields']['nothing_1']['table'] = 'views';
+    $handler->display->display_options['fields']['nothing_1']['field'] = 'nothing';
+    $handler->display->display_options['fields']['nothing_1']['ui_name'] = 'Analysis Link';
+    $handler->display->display_options['fields']['nothing_1']['label'] = '';
+    $handler->display->display_options['fields']['nothing_1']['alter']['text'] = 'Analysis';
+    $handler->display->display_options['fields']['nothing_1']['alter']['make_link'] = TRUE;
+    $handler->display->display_options['fields']['nothing_1']['alter']['path'] = 'node/[nid]/webform-results/analysis';
+    $handler->display->display_options['fields']['nothing_1']['element_label_colon'] = FALSE;
+    /* Field: Table Link */
+    $handler->display->display_options['fields']['nothing_2']['id'] = 'nothing_2';
+    $handler->display->display_options['fields']['nothing_2']['table'] = 'views';
+    $handler->display->display_options['fields']['nothing_2']['field'] = 'nothing';
+    $handler->display->display_options['fields']['nothing_2']['ui_name'] = 'Table Link';
+    $handler->display->display_options['fields']['nothing_2']['label'] = '';
+    $handler->display->display_options['fields']['nothing_2']['alter']['text'] = 'Table';
+    $handler->display->display_options['fields']['nothing_2']['alter']['make_link'] = TRUE;
+    $handler->display->display_options['fields']['nothing_2']['alter']['path'] = 'node/[nid]/webform-results/table';
+    $handler->display->display_options['fields']['nothing_2']['element_label_colon'] = FALSE;
+    /* Field: Download Link */
+    $handler->display->display_options['fields']['nothing_3']['id'] = 'nothing_3';
+    $handler->display->display_options['fields']['nothing_3']['table'] = 'views';
+    $handler->display->display_options['fields']['nothing_3']['field'] = 'nothing';
+    $handler->display->display_options['fields']['nothing_3']['ui_name'] = 'Download Link';
+    $handler->display->display_options['fields']['nothing_3']['label'] = '';
+    $handler->display->display_options['fields']['nothing_3']['alter']['text'] = 'Download';
+    $handler->display->display_options['fields']['nothing_3']['alter']['make_link'] = TRUE;
+    $handler->display->display_options['fields']['nothing_3']['alter']['path'] = 'node/[nid]/webform-results/download';
+    $handler->display->display_options['fields']['nothing_3']['element_label_colon'] = FALSE;
+    /* Field: Clear Link */
+    $handler->display->display_options['fields']['nothing_4']['id'] = 'nothing_4';
+    $handler->display->display_options['fields']['nothing_4']['table'] = 'views';
+    $handler->display->display_options['fields']['nothing_4']['field'] = 'nothing';
+    $handler->display->display_options['fields']['nothing_4']['ui_name'] = 'Clear Link';
+    $handler->display->display_options['fields']['nothing_4']['label'] = '';
+    $handler->display->display_options['fields']['nothing_4']['alter']['text'] = 'Clear';
+    $handler->display->display_options['fields']['nothing_4']['alter']['make_link'] = TRUE;
+    $handler->display->display_options['fields']['nothing_4']['alter']['path'] = 'node/[nid]/webform-results/clear';
+    $handler->display->display_options['fields']['nothing_4']['element_label_colon'] = FALSE;
+    /* Field: Content: Published */
+    $handler->display->display_options['fields']['status']['id'] = 'status';
+    $handler->display->display_options['fields']['status']['table'] = 'node';
+    $handler->display->display_options['fields']['status']['field'] = 'status';
+    $handler->display->display_options['fields']['status']['not'] = 0;
+    /* Field: Content: Edit link */
+    $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+    $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
+    $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+    $handler->display->display_options['fields']['edit_node']['label'] = 'Operations';
+    /* Field: Content: Delete link */
+    $handler->display->display_options['fields']['delete_node']['id'] = 'delete_node';
+    $handler->display->display_options['fields']['delete_node']['table'] = 'views_entity_node';
+    $handler->display->display_options['fields']['delete_node']['field'] = 'delete_node';
+    $handler->display->display_options['fields']['delete_node']['label'] = '';
+    $handler->display->display_options['fields']['delete_node']['element_label_colon'] = FALSE;
+    /* Sort criterion: Content: Post date */
+    $handler->display->display_options['sorts']['created']['id'] = 'created';
+    $handler->display->display_options['sorts']['created']['table'] = 'node';
+    $handler->display->display_options['sorts']['created']['field'] = 'created';
+    $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+    /* Filter criterion: Content: Type */
+    $handler->display->display_options['filters']['type']['id'] = 'type';
+    $handler->display->display_options['filters']['type']['table'] = 'node';
+    $handler->display->display_options['filters']['type']['field'] = 'type';
+    $handler->display->display_options['filters']['type']['value'] = array(
+      'webform' => 'webform',
+    );
+    /* Filter criterion: Content: Title */
+    $handler->display->display_options['filters']['title']['id'] = 'title';
+    $handler->display->display_options['filters']['title']['table'] = 'node';
+    $handler->display->display_options['filters']['title']['field'] = 'title';
+    $handler->display->display_options['filters']['title']['operator'] = 'contains';
+    $handler->display->display_options['filters']['title']['exposed'] = TRUE;
+    $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
+    $handler->display->display_options['filters']['title']['expose']['label'] = 'Title';
+    $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
+    $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
+    $handler->display->display_options['filters']['title']['expose']['remember_roles'] = array(
+      2 => '2',
+      1 => 0,
+      3 => 0,
+      4 => 0,
+    );
+    /* Filter criterion: Content: Published */
+    $handler->display->display_options['filters']['status']['id'] = 'status';
+    $handler->display->display_options['filters']['status']['table'] = 'node';
+    $handler->display->display_options['filters']['status']['field'] = 'status';
+    $handler->display->display_options['filters']['status']['value'] = 'All';
+    $handler->display->display_options['filters']['status']['exposed'] = TRUE;
+    $handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+    $handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+    $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+    $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+    $handler->display->display_options['filters']['status']['expose']['remember_roles'] = array(
+      2 => '2',
+      1 => 0,
+      3 => 0,
+      4 => 0,
+    );
+    
+    /* Display: Page */
+    $handler = $view->new_display('page', 'Page', 'page');
+    $handler->display->display_options['path'] = 'admin/manage/content/webforms';
+    $handler->display->display_options['menu']['type'] = 'normal';
+    $handler->display->display_options['menu']['title'] = 'Webforms';
+    $handler->display->display_options['menu']['description'] = 'Manage all content of the "Webform" content type.';
+    $handler->display->display_options['menu']['weight'] = '0';
+    $handler->display->display_options['menu']['context'] = 0;
+    $handler->display->display_options['menu']['context_only_inline'] = 0;
+    
+    $views['webform_bulk_operations'] = $view;
+  }
 }
