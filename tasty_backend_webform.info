@@ -3,3 +3,4 @@ description = Tasty Backend configuration for the Webform module.
 version = VERSION
 core = 7.x
 package = Tasty Backend
+dependencies[] = tasty_backend_base
