@@ -20,7 +20,7 @@ function tasty_backend_webform_views_default_views_alter(&$views) {
     
     /* Display: Master */
     $handler = $view->new_display('default', 'Master', 'default');
-    $handler->display->display_options['title'] = 'Manage Webforms';
+    $handler->display->display_options['title'] = 'Manage Webform content';
     $handler->display->display_options['use_ajax'] = TRUE;
     $handler->display->display_options['use_more_always'] = FALSE;
     $handler->display->display_options['access']['type'] = 'perm';
@@ -411,9 +411,9 @@ function tasty_backend_webform_views_default_views_alter(&$views) {
     
     /* Display: Page */
     $handler = $view->new_display('page', 'Page', 'page');
-    $handler->display->display_options['path'] = 'admin/manage/content/webforms';
+    $handler->display->display_options['path'] = 'admin/manage/content/webform';
     $handler->display->display_options['menu']['type'] = 'normal';
-    $handler->display->display_options['menu']['title'] = 'Webforms';
+    $handler->display->display_options['menu']['title'] = 'Webform';
     $handler->display->display_options['menu']['description'] = 'Manage all content of the "Webform" content type.';
     $handler->display->display_options['menu']['weight'] = '0';
     $handler->display->display_options['menu']['context'] = 0;
