@@ -5,6 +5,9 @@
  */
 function tasty_backend_webform_install() {
   
+  // Add the Main Content vertical tab.  It won't get automatically added since this content type isn't custom.
+  tasty_backend_base_main_content_field_group('webform');
+  
   // Assign webform permissions to the 'content admin' role created by the Tasty Backend Base module.
   $content_admin_role = user_role_load_by_name('content admin');
   user_role_grant_permissions($content_admin_role->rid, array(
